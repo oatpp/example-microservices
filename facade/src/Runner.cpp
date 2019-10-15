@@ -32,6 +32,7 @@ void Runner::run() {
   bookController->addEndpointsToRouter(router);
 
   docEndpoints->pushBackAll(userController->getEndpoints());
+  docEndpoints->pushBackAll(bookController->getEndpoints());
 
   auto swaggerController = oatpp::swagger::Controller::createShared(docEndpoints);
   swaggerController->addEndpointsToRouter(router);
@@ -45,7 +46,7 @@ void Runner::run() {
 
   threads.push_back(std::thread([router, connectionHandler]{
 
-    OATPP_COMPONENT(std::shared_ptr<oatpp::network::ServerConnectionProvider>, connectionProvider, "facade" /* qualifier */);
+    OATPP_COMPONENT(std::shared_ptr<oatpp::network::ServerConnectionProvider>, connectionProvider, Qualifiers::SERVICE_FACADE);
     oatpp::network::server::Server server(connectionProvider, connectionHandler);
     server.run();
 

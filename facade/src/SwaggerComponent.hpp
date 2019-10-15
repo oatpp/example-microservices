@@ -2,6 +2,8 @@
 #ifndef example_facade_SwaggerComponent_hpp
 #define example_facade_SwaggerComponent_hpp
 
+#include "./Constants.hpp"
+
 #include "oatpp-swagger/Model.hpp"
 #include "oatpp-swagger/Resources.hpp"
 #include "oatpp/core/macro/component.hpp"
@@ -14,7 +16,7 @@ public:
   /**
    *  General API docs info
    */
-  OATPP_CREATE_COMPONENT(std::shared_ptr<oatpp::swagger::DocumentInfo>, swaggerDocumentInfo)("facade" /* qualifier */, [] {
+  OATPP_CREATE_COMPONENT(std::shared_ptr<oatpp::swagger::DocumentInfo>, swaggerDocumentInfo)(Qualifiers::SERVICE_FACADE, [] {
 
     oatpp::swagger::DocumentInfo::Builder builder;
 
@@ -38,7 +40,7 @@ public:
   /**
    *  Swagger-Ui Resources (<oatpp-examples>/lib/oatpp-swagger/res)
    */
-  OATPP_CREATE_COMPONENT(std::shared_ptr<oatpp::swagger::Resources>, swaggerResources)("facade" /* qualifier */, [] {
+  OATPP_CREATE_COMPONENT(std::shared_ptr<oatpp::swagger::Resources>, swaggerResources)(Qualifiers::SERVICE_FACADE, [] {
     // Make sure to specify correct full path to oatpp-swagger/res folder !!!
     return oatpp::swagger::Resources::loadResources(OATPP_SWAGGER_RES_PATH);
   }());

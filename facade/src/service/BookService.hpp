@@ -11,9 +11,10 @@ namespace example { namespace facade { namespace service {
 class BookService : public oatpp::web::client::ApiClient {
 public:
 
-  API_CLIENT_INIT(Client)
+  API_CLIENT_INIT(BookService)
 
   API_CALL("GET", "/books", getBooks)
+  API_CALL("GET", "/books/{bookId}", getBookById, PATH(Int64, bookId))
 
 };
 

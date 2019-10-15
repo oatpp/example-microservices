@@ -11,10 +11,14 @@ add_library(${project_name}-lib
         src/SwaggerComponent.hpp
         src/controller/BookController.hpp
         src/controller/UserController.hpp
+        src/dto/BookDto.hpp
+        src/dto/BookInfoDto.hpp
         src/dto/UserDto.hpp
         src/Runner.cpp
         src/Runner.hpp
-        src/service/BookService.hpp src/service/UserService.hpp)
+        src/service/BookService.hpp
+        src/service/UserService.hpp
+        src/Constants.hpp)
 
 ## include directories
 

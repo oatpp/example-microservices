@@ -13,9 +13,8 @@ class UserDto : public oatpp::data::mapping::type::Object {
 
   DTO_INIT(UserDto, Object)
 
-  DTO_FIELD(Int32, id);
-  DTO_FIELD(String, firstName, "first-name");
-  DTO_FIELD(String, lastName, "last-name");
+  DTO_FIELD(Int64, id);
+  DTO_FIELD(String, name, "name");
 
 };
 

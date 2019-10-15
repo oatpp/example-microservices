@@ -5,7 +5,11 @@
 void run() {
 
   /* Register Components in scope of run() method */
-  example::facade::AppComponent components(8000, 0, 0);
+  example::facade::AppComponent components(
+    {"localhost", 8000}, // Facade service (this)
+    {"localhost", 8001}, // User Service
+    {"localhost", 8002}  // Book Service
+  );
 
   /* run */
   example::facade::Runner::run();

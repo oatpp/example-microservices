@@ -13,9 +13,9 @@ class BookDto : public oatpp::data::mapping::type::Object {
 
   DTO_INIT(BookDto, Object)
 
-  DTO_FIELD(Int32, id);
+  DTO_FIELD(Int64, id);
+  DTO_FIELD(Int64, authorId, "authorId");
   DTO_FIELD(String, title, "title");
-  DTO_FIELD(String, author, "author");
 
 };
 
