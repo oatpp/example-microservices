@@ -4,18 +4,13 @@
 #include "AppComponent.hpp"
 
 #include "controller/BookController.hpp"
-#include "controller/UserController.hpp"
 
 #include "oatpp-swagger/Controller.hpp"
-
 #include "oatpp/network/server/Server.hpp"
 
-#include <list>
-#include <thread>
+namespace example { namespace book {
 
-namespace example { namespace facade {
-
-void Runner::run() {
+void Runner::run(std::list<std::thread>& acceptingThreads) {
 
   /* Get router component */
   OATPP_COMPONENT(std::shared_ptr<oatpp::web::server::HttpRouter>, router);
@@ -25,13 +20,9 @@ void Runner::run() {
 
   auto docEndpoints = oatpp::swagger::Controller::Endpoints::createShared();
 
-  auto userController = std::make_shared<controller::UserController>();
-  userController->addEndpointsToRouter(router);
-
   auto bookController = std::make_shared<controller::BookController>();
   bookController->addEndpointsToRouter(router);
 
-  docEndpoints->pushBackAll(userController->getEndpoints());
   docEndpoints->pushBackAll(bookController->getEndpoints());
 
   auto swaggerController = oatpp::swagger::Controller::createShared(docEndpoints);
@@ -42,33 +33,24 @@ void Runner::run() {
   /* Create connection handler */
   auto connectionHandler = oatpp::web::server::HttpConnectionHandler::createShared(router);
 
-  std::list<std::thread> threads;
+  acceptingThreads.push_back(std::thread([router, connectionHandler]{
 
-  threads.push_back(std::thread([router, connectionHandler]{
-
-    OATPP_COMPONENT(std::shared_ptr<oatpp::network::ServerConnectionProvider>, connectionProvider, Qualifiers::SERVICE_FACADE);
+    OATPP_COMPONENT(std::shared_ptr<oatpp::network::ServerConnectionProvider>, connectionProvider, Qualifiers::SERVICE_BOOK);
     oatpp::network::server::Server server(connectionProvider, connectionHandler);
+    OATPP_LOGI("book-service", "server is listening on port '%s'", connectionProvider->getProperty("port").getData());
     server.run();
 
   }));
 
-  //OATPP_LOGI("facade", "server is listening on port '%hu'", port);
 
+  acceptingThreads.push_back(std::thread([router, connectionHandler]{
 
-  threads.push_back(std::thread([router, connectionHandler]{
-
-    OATPP_COMPONENT(std::shared_ptr<oatpp::network::ServerConnectionProvider>, connectionProvider, "facade.virtualhost" /* qualifier */);
+    OATPP_COMPONENT(std::shared_ptr<oatpp::network::ServerConnectionProvider>, connectionProvider, Qualifiers::SERVICE_BOOK_VH);
     oatpp::network::server::Server server(connectionProvider, connectionHandler);
+    OATPP_LOGI("book-service", "server is listening on virtual interface '%s'", connectionProvider->getProperty("host").getData());
     server.run();
 
   }));
-
-  //OATPP_LOGI("facade", "server is listening on virtual interface '%s'", interface->getName()->getData());
-
-
-  for(auto& thread : threads) {
-    thread.join();
-  }
 
 }
 

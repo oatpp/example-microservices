@@ -1,9 +1,9 @@
 #ifndef example_facade_UserController_hpp
 #define example_facade_UserController_hpp
 
-#include "Constants.hpp"
+#include "facade/Constants.hpp"
 
-#include "dto/UserDto.hpp"
+#include "facade/dto/UserDto.hpp"
 
 #include "oatpp/web/server/api/ApiController.hpp"
 #include "oatpp/core/data/mapping/ObjectMapper.hpp"

@@ -1,7 +1,8 @@
 #ifndef example_user_UserController_hpp
 #define example_user_UserController_hpp
 
-#include "../db/Database.hpp"
+#include "user-service/Constants.hpp"
+#include "user-service/db/Database.hpp"
 
 #include "oatpp/web/server/api/ApiController.hpp"
 #include "oatpp/parser/json/mapping/ObjectMapper.hpp"

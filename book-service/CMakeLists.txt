@@ -7,15 +7,15 @@ project(${project_name})
 set(CMAKE_CXX_STANDARD 11)
 
 add_library(${project_name}-lib
-        src/AppComponent.hpp
-        src/SwaggerComponent.hpp
-        src/controller/BookController.hpp
-        src/db/Database.cpp
-        src/db/Database.hpp
-        src/db/model/Book.hpp
-        src/dto/BookDto.hpp
-        src/Runner.cpp
-        src/Runner.hpp
+        src/book-service/AppComponent.hpp
+        src/book-service/SwaggerComponent.hpp
+        src/book-service/controller/BookController.hpp
+        src/book-service/db/Database.cpp
+        src/book-service/db/Database.hpp
+        src/book-service/db/model/Book.hpp
+        src/book-service/dto/BookDto.hpp
+        src/book-service/Runner.cpp
+        src/book-service/Runner.hpp
 )
 
 ## include directories
@@ -40,11 +40,11 @@ add_definitions(-DOATPP_SWAGGER_RES_PATH="${OATPP_BASE_DIR}/bin/oatpp-swagger/re
 
 ## add executables
 
-add_executable(${project_name}-exe src/App.cpp)
+add_executable(${project_name}-exe src/book-service/App.cpp)
 target_link_libraries(${project_name}-exe ${project_name}-lib)
 
 add_executable(${project_name}-test
-        test/tests.cpp
+        test/book-service/tests.cpp
 )
 target_link_libraries(${project_name}-test ${project_name}-lib)
 

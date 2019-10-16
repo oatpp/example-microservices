@@ -2,7 +2,7 @@
 #ifndef example_facade_SwaggerComponent_hpp
 #define example_facade_SwaggerComponent_hpp
 
-#include "./Constants.hpp"
+#include "Constants.hpp"
 
 #include "oatpp-swagger/Model.hpp"
 #include "oatpp-swagger/Resources.hpp"

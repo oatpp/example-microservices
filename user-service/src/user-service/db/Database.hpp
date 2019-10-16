@@ -2,7 +2,7 @@
 #ifndef example_user_db_Database_hpp
 #define example_user_db_Database_hpp
 
-#include "../dto/UserDto.hpp"
+#include "user-service/dto/UserDto.hpp"
 #include "model/User.hpp"
 
 #include "oatpp/core/concurrency/SpinLock.hpp"

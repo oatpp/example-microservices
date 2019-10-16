@@ -7,18 +7,18 @@ project(${project_name})
 set(CMAKE_CXX_STANDARD 11)
 
 add_library(${project_name}-lib
-        src/AppComponent.hpp
-        src/SwaggerComponent.hpp
-        src/controller/BookController.hpp
-        src/controller/UserController.hpp
-        src/dto/BookDto.hpp
-        src/dto/BookInfoDto.hpp
-        src/dto/UserDto.hpp
-        src/Runner.cpp
-        src/Runner.hpp
-        src/service/BookService.hpp
-        src/service/UserService.hpp
-        src/Constants.hpp)
+        src/facade/AppComponent.hpp
+        src/facade/SwaggerComponent.hpp
+        src/facade/controller/BookController.hpp
+        src/facade/controller/UserController.hpp
+        src/facade/dto/BookDto.hpp
+        src/facade/dto/BookInfoDto.hpp
+        src/facade/dto/UserDto.hpp
+        src/facade/Runner.cpp
+        src/facade/Runner.hpp
+        src/facade/service/BookService.hpp
+        src/facade/service/UserService.hpp
+        src/facade/Constants.hpp)
 
 ## include directories
 
@@ -42,11 +42,11 @@ add_definitions(-DOATPP_SWAGGER_RES_PATH="${OATPP_BASE_DIR}/bin/oatpp-swagger/re
 
 ## add executables
 
-add_executable(${project_name}-exe src/App.cpp)
+add_executable(${project_name}-exe src/facade/App.cpp)
 target_link_libraries(${project_name}-exe ${project_name}-lib)
 
 add_executable(${project_name}-test
-        test/tests.cpp
+        test/facade/tests.cpp
 )
 target_link_libraries(${project_name}-test ${project_name}-lib)
 

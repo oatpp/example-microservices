@@ -48,7 +48,7 @@ public:
    * Create virtualhost interface
    */
   OATPP_CREATE_COMPONENT(std::shared_ptr<oatpp::network::virtual_::Interface>, virtualInterface)(Qualifiers::SERVICE_FACADE, [] {
-    return oatpp::network::virtual_::Interface::createShared("facade.virtualhost");
+    return oatpp::network::virtual_::Interface::obtainShared("facade.virtualhost");
   }());
 
   /**

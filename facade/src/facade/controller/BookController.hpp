@@ -1,14 +1,14 @@
 #ifndef example_facade_BookController_hpp
 #define example_facade_BookController_hpp
 
-#include "Constants.hpp"
+#include "facade/Constants.hpp"
 
-#include "dto/BookInfoDto.hpp"
-#include "dto/BookDto.hpp"
-#include "dto/UserDto.hpp"
+#include "facade/dto/BookInfoDto.hpp"
+#include "facade/dto/BookDto.hpp"
+#include "facade/dto/UserDto.hpp"
 
-#include "service/BookService.hpp"
-#include "service/UserService.hpp"
+#include "facade/service/BookService.hpp"
+#include "facade/service/UserService.hpp"
 
 #include "oatpp/web/server/api/ApiController.hpp"
 #include "oatpp/parser/json/mapping/ObjectMapper.hpp"

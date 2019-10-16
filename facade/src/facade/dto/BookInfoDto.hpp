@@ -2,7 +2,7 @@
 #ifndef example_facade_dto_BookInfoDto_hpp
 #define example_facade_dto_BookInfoDto_hpp
 
-#include "./UserDto.hpp"
+#include "UserDto.hpp"
 
 #include "oatpp/core/data/mapping/type/Object.hpp"
 #include "oatpp/core/macro/codegen.hpp"

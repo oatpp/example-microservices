@@ -2,8 +2,8 @@
 #ifndef example_book_db_Database_hpp
 #define example_book_db_Database_hpp
 
-#include "dto/BookDto.hpp"
-#include "db/model/Book.hpp"
+#include "book-service/dto/BookDto.hpp"
+#include "model/Book.hpp"
 
 #include "oatpp/core/concurrency/SpinLock.hpp"
 #include <unordered_map>

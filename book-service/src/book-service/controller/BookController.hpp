@@ -1,7 +1,7 @@
 #ifndef example_book_BookController_hpp
 #define example_book_BookController_hpp
 
-#include "../db/Database.hpp"
+#include "book-service/db/Database.hpp"
 
 #include "oatpp/web/server/api/ApiController.hpp"
 #include "oatpp/parser/json/mapping/ObjectMapper.hpp"

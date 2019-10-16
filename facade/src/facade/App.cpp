@@ -1,6 +1,6 @@
 
-#include "AppComponent.hpp"
-#include "Runner.hpp"
+#include "facade/AppComponent.hpp"
+#include "facade/Runner.hpp"
 
 void run() {
 
@@ -12,7 +12,12 @@ void run() {
   );
 
   /* run */
-  example::facade::Runner::run();
+  std::list<std::thread> acceptingThreads;
+  example::facade::Runner::run(acceptingThreads);
+
+  for(auto& thread : acceptingThreads) {
+    thread.join();
+  }
 
 }
 
