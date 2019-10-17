@@ -17,11 +17,11 @@ private:
   /**
    *  Inject Database component
    */
-  OATPP_COMPONENT(std::shared_ptr<db::Database>, m_database);
+  OATPP_COMPONENT(std::shared_ptr<db::Database>, m_database, Qualifiers::SERVICE_USER);
 
 public:
 
-  UserController(OATPP_COMPONENT(std::shared_ptr<ObjectMapper>, objectMapper) /* Inject object mapper */)
+  UserController(OATPP_COMPONENT(std::shared_ptr<ObjectMapper>, objectMapper, Qualifiers::SERVICE_USER) /* Inject object mapper */)
     : oatpp::web::server::api::ApiController(objectMapper) {}
 
 public:

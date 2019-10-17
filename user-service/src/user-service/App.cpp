@@ -12,7 +12,8 @@ void run() {
 
   /* run */
   std::list<std::thread> acceptingThreads;
-  example::user::Runner::run(acceptingThreads);
+  example::user::Runner runner;
+  runner.run(acceptingThreads);
 
   for(auto& thread : acceptingThreads) {
     thread.join();
@@ -28,3 +29,4 @@ int main(int argc, const char * argv[]) {
   
   return 0;
 }
+

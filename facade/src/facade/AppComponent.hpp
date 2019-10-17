@@ -87,7 +87,15 @@ public:
 
     OATPP_COMPONENT(std::shared_ptr<oatpp::data::mapping::ObjectMapper>, objectMapper, Qualifiers::SERVICE_FACADE);
 
-    auto connectionProvider = oatpp::network::client::SimpleTCPConnectionProvider::createShared(m_userService.host, m_userService.port);
+    std::shared_ptr<oatpp::network::ClientConnectionProvider> connectionProvider;
+
+    if(m_userService.port == 0) {
+      auto interface = oatpp::network::virtual_::Interface::obtainShared(m_userService.host);
+      connectionProvider = oatpp::network::virtual_::client::ConnectionProvider::createShared(interface);
+    } else {
+      connectionProvider= oatpp::network::client::SimpleTCPConnectionProvider::createShared(m_userService.host, m_userService.port);
+    }
+
     auto requestExecutor = oatpp::web::client::HttpRequestExecutor::createShared(connectionProvider);
     return service::UserService::createShared(requestExecutor, objectMapper);
 
@@ -100,7 +108,15 @@ public:
 
     OATPP_COMPONENT(std::shared_ptr<oatpp::data::mapping::ObjectMapper>, objectMapper, Qualifiers::SERVICE_FACADE);
 
-    auto connectionProvider = oatpp::network::client::SimpleTCPConnectionProvider::createShared(m_bookService.host, m_bookService.port);
+    std::shared_ptr<oatpp::network::ClientConnectionProvider> connectionProvider;
+
+    if(m_userService.port == 0) {
+      auto interface = oatpp::network::virtual_::Interface::obtainShared(m_bookService.host);
+      connectionProvider = oatpp::network::virtual_::client::ConnectionProvider::createShared(interface);
+    } else {
+      connectionProvider= oatpp::network::client::SimpleTCPConnectionProvider::createShared(m_bookService.host, m_bookService.port);
+    }
+
     auto requestExecutor = oatpp::web::client::HttpRequestExecutor::createShared(connectionProvider);
     return service::BookService::createShared(requestExecutor, objectMapper);
 

@@ -12,7 +12,9 @@ void run() {
 
   /* run */
   std::list<std::thread> acceptingThreads;
-  example::book::Runner::run(acceptingThreads);
+
+  example::book::Runner runner;
+  runner.run(acceptingThreads);
 
   for(auto& thread : acceptingThreads) {
     thread.join();

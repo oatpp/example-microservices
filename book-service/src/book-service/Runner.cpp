@@ -10,25 +10,31 @@
 
 namespace example { namespace book {
 
-void Runner::run(std::list<std::thread>& acceptingThreads) {
+Runner::Runner() {
 
-  /* Get router component */
-  OATPP_COMPONENT(std::shared_ptr<oatpp::web::server::HttpRouter>, router);
-
-  /**************************************************************/
-  /* Create controllers and add endpoints to router             */
+  OATPP_COMPONENT(std::shared_ptr<oatpp::web::server::HttpRouter>, router, Qualifiers::SERVICE_BOOK);
 
   auto docEndpoints = oatpp::swagger::Controller::Endpoints::createShared();
 
+  /* Add BookController */
   auto bookController = std::make_shared<controller::BookController>();
   bookController->addEndpointsToRouter(router);
+  m_controllers.push_back(bookController);
 
   docEndpoints->pushBackAll(bookController->getEndpoints());
 
-  auto swaggerController = oatpp::swagger::Controller::createShared(docEndpoints);
+  OATPP_COMPONENT(std::shared_ptr<oatpp::swagger::DocumentInfo>, documentInfo, Qualifiers::SERVICE_BOOK);
+  OATPP_COMPONENT(std::shared_ptr<oatpp::swagger::Resources>, resources, Qualifiers::SERVICE_BOOK);
+  auto swaggerController = oatpp::swagger::Controller::createShared(docEndpoints, documentInfo, resources);
   swaggerController->addEndpointsToRouter(router);
+  m_controllers.push_back(swaggerController);
 
-  /**************************************************************/
+}
+
+void Runner::run(std::list<std::thread>& acceptingThreads) {
+
+  /* Get router component */
+  OATPP_COMPONENT(std::shared_ptr<oatpp::web::server::HttpRouter>, router, Qualifiers::SERVICE_BOOK);
 
   /* Create connection handler */
   auto connectionHandler = oatpp::web::server::HttpConnectionHandler::createShared(router);
@@ -41,7 +47,6 @@ void Runner::run(std::list<std::thread>& acceptingThreads) {
     server.run();
 
   }));
-
 
   acceptingThreads.push_back(std::thread([router, connectionHandler]{
 

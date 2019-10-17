@@ -1,6 +1,7 @@
 #ifndef example_book_BookController_hpp
 #define example_book_BookController_hpp
 
+#include "book-service/Constants.hpp"
 #include "book-service/db/Database.hpp"
 
 #include "oatpp/web/server/api/ApiController.hpp"
@@ -16,11 +17,11 @@ private:
   /**
    *  Inject Database component
    */
-  OATPP_COMPONENT(std::shared_ptr<db::Database>, m_database);
+  OATPP_COMPONENT(std::shared_ptr<db::Database>, m_database, Qualifiers::SERVICE_BOOK);
 
 public:
 
-  BookController(OATPP_COMPONENT(std::shared_ptr<ObjectMapper>, objectMapper) /* Inject object mapper */)
+  BookController(OATPP_COMPONENT(std::shared_ptr<ObjectMapper>, objectMapper, Qualifiers::SERVICE_BOOK) /* Inject object mapper */)
     : oatpp::web::server::api::ApiController(objectMapper) {}
 
 public:
