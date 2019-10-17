@@ -96,7 +96,7 @@ public:
   ENDPOINT("DELETE", "/books/{bookId}", deleteBook,
            PATH(Int64, bookId)) {
     bool success = m_database->deleteBook(bookId);
-    OATPP_ASSERT_HTTP(success, Status::CODE_417, "Book not deleted. Perhaps no such Book in the Database");
+    OATPP_ASSERT_HTTP(success, Status::CODE_404, "Book not deleted. Perhaps no such Book in the Database");
     return createResponse(Status::CODE_200, "Book successfully deleted");
   }
 

@@ -95,7 +95,7 @@ public:
   ENDPOINT("DELETE", "/users/{userId}", deleteUser,
            PATH(Int64, userId)) {
     bool success = m_database->deleteUser(userId);
-    OATPP_ASSERT_HTTP(success, Status::CODE_417, "User not deleted. Perhaps no such User in the Database");
+    OATPP_ASSERT_HTTP(success, Status::CODE_404, "User not deleted. Perhaps no such User in the Database");
     return createResponse(Status::CODE_200, "User successfully deleted");
   }
 
