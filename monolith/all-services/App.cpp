@@ -22,10 +22,10 @@ void run() {
 
   example::facade::AppComponent facadeComponents(
     {"localhost", 8000}, // Facade service (this)
-    {"localhost", 8001}, // User Service
-    {"localhost", 8002}  // Book Service
-//    {"user.virtualhost", 0}, // User Service
-//    {"book.virtualhost", 0}  // Book Service
+    //{"localhost", 8001}, // User Service
+    //{"localhost", 8002}  // Book Service
+    {"user.virtualhost", 0}, // User Service
+    {"book.virtualhost", 0}  // Book Service
   );
 
   std::list<std::thread> acceptingThreads;
