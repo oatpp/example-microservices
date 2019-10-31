@@ -21,20 +21,33 @@ target_link_libraries(${project_name}-exe
 ## define path to swagger-ui res folder
 add_definitions(-DOATPP_SWAGGER_RES_PATH="${OATPP_BASE_DIR}/bin/oatpp-swagger/res")
 
-target_include_directories(${project_name}-exe
-        PUBLIC ../../book-service/src
-        PUBLIC ../../user-service/src
-        PUBLIC ../../facade/src
+set(USER_SERVICE_DIR ${CMAKE_CURRENT_LIST_DIR}/../../user-service/build)
+set(BOOK_SERVICE_DIR ${CMAKE_CURRENT_LIST_DIR}/../../book-service/build)
+set(FACADE_SERVICE_DIR ${CMAKE_CURRENT_LIST_DIR}/../../facade/build)
+
+FIND_LIBRARY(USER_LIBRARY
+        NAMES user-service-lib
+        HINTS ${USER_SERVICE_DIR}
 )
 
-target_link_directories(${project_name}-exe
-        PUBLIC ../../book-service/build
-        PUBLIC ../../user-service/build
-        PUBLIC ../../facade/build
+FIND_LIBRARY(BOOK_LIBRARY
+        NAMES book-service-lib
+        HINTS ${BOOK_SERVICE_DIR}
+)
+
+FIND_LIBRARY(FACADE_LIBRARY
+        NAMES facade-lib
+        HINTS ${FACADE_SERVICE_DIR}
+)
+
+target_include_directories(${project_name}-exe
+        PUBLIC ${CMAKE_CURRENT_LIST_DIR}/../../user-service/src
+        PUBLIC ${CMAKE_CURRENT_LIST_DIR}/../../book-service/src
+        PUBLIC ${CMAKE_CURRENT_LIST_DIR}/../../facade/src
 )
 
 target_link_libraries(${project_name}-exe
-        PUBLIC book-service-lib
-        PUBLIC user-service-lib
-        PUBLIC facade-lib
+        PUBLIC ${USER_LIBRARY}
+        PUBLIC ${BOOK_LIBRARY}
+        PUBLIC ${FACADE_LIBRARY}
 )
