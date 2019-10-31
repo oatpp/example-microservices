@@ -36,7 +36,7 @@ For more information about this example, see the [Monolithization](https://oatpp
 $ ./build_all.sh 
 ```
 
-### Run as separate applications
+### Run as microservices
 
 ```bash
 $ ./run_all_microservices.sh 
@@ -46,4 +46,23 @@ $ ./run_all_microservices.sh
 
 ```bash
 $ ./monolith/all-services/build/all-services-exe
+```
+
+## Overview
+
+<img src="https://raw.githubusercontent.com/oatpp/example-microservices/master/diagram.svg?sanitize=true">
+
+Facade takes book info from book-service, user info from user-service, merges data, and returns to the client.
+
+### Service ports
+
+ - Facade - 8000
+ - User - 8001
+ - Book - 8002
+ 
+### Example curl
+
+```
+$ curl http://localhost:8000/books/4
+{"id": 4, "title": "1984", "author": {"id": 4, "name": "George Orwell"}}
 ```
