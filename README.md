@@ -1,4 +1,4 @@
-# example-microservices
+# example-microservices [![Build Status](https://dev.azure.com/lganzzzo/lganzzzo/_apis/build/status/oatpp.example-microservices?branchName=master)](https://dev.azure.com/lganzzzo/lganzzzo/_build/latest?definitionId=22&branchName=master)
 
 This is an example project on how to build microservices with Oat++ Web Framework, and how to utilize the [Monolithization](https://oatpp.io/docs/monolithization/) feature.
 
