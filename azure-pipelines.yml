@@ -1,0 +1,43 @@
+jobs:
+  - job: ubuntu_16_04
+    displayName: 'Build - Ubuntu 16.04'
+    continueOnError: false
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    workspace:
+      clean: all
+    steps:
+      - script: |
+          sudo ./ci-install-oatpp-modules.sh
+        displayName: 'install oatpp modules'
+      - script: |
+          mkdir -p user-service/build
+          mkdir -p book-service/build
+          mkdir -p facade/build
+          mkdir -p monolith/all-services/build
+        displayName: 'make dirs build'
+      - script: |
+          sudo cmake ..
+          sudo make
+          make test ARGS="-V"
+        workingDirectory: user-service/build
+        displayName: 'build user-service'
+      - script: |
+          sudo cmake ..
+          sudo make
+          make test ARGS="-V"
+        workingDirectory: book-service/build
+        displayName: 'build book-service'
+      - script: |
+          sudo cmake ..
+          sudo make
+          make test ARGS="-V"
+        workingDirectory: facade/build
+        displayName: 'build facade'
+      - script: |
+          sudo cmake ..
+          sudo make
+#          make test ARGS="-V"
+        workingDirectory: monolith/all-services/build
+        displayName: 'build monolith'
+
