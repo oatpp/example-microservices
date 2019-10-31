@@ -6,7 +6,6 @@ See more:
 
 - [Oat++ Website](https://oatpp.io/)
 - [Oat++ Github Repository](https://github.com/oatpp/oatpp)
-- [Get Started](https://oatpp.io/docs/start)
 - [Monolithization](https://oatpp.io/docs/monolithization/)
 
 ## Note
