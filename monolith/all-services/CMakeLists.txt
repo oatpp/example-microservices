@@ -44,8 +44,8 @@ target_link_libraries(${project_name}-exe
         PUBLIC ${FACADE_LIBRARY}
 )
 
-find_package(oatpp          0.19.10 REQUIRED)
-find_package(oatpp-swagger  0.19.10 REQUIRED)
+find_package(oatpp          0.19.11 REQUIRED)
+find_package(oatpp-swagger  0.19.11 REQUIRED)
 
 target_link_libraries(${project_name}-exe
         PUBLIC oatpp::oatpp
