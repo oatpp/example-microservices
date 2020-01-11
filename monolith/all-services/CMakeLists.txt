@@ -10,9 +10,6 @@ add_executable(${project_name}-exe
         App.cpp
 )
 
-## define path to swagger-ui res folder
-add_definitions(-DOATPP_SWAGGER_RES_PATH="${OATPP_BASE_DIR}/bin/oatpp-swagger/res")
-
 set(USER_SERVICE_DIR ${CMAKE_CURRENT_LIST_DIR}/../../user-service/build)
 set(BOOK_SERVICE_DIR ${CMAKE_CURRENT_LIST_DIR}/../../book-service/build)
 set(FACADE_SERVICE_DIR ${CMAKE_CURRENT_LIST_DIR}/../../facade/build)
@@ -44,8 +41,11 @@ target_link_libraries(${project_name}-exe
         PUBLIC ${FACADE_LIBRARY}
 )
 
-find_package(oatpp          0.19.11 REQUIRED)
-find_package(oatpp-swagger  0.19.11 REQUIRED)
+find_package(oatpp          0.19.12 REQUIRED)
+find_package(oatpp-swagger  0.19.12 REQUIRED)
+
+## define path to swagger-ui res folder
+add_definitions(-DOATPP_SWAGGER_RES_PATH="${OATPP_BASE_DIR}/bin/oatpp-swagger/res")
 
 target_link_libraries(${project_name}-exe
         PUBLIC oatpp::oatpp
