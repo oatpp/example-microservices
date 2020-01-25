@@ -21,7 +21,7 @@ namespace example { namespace user {
 
 struct HostPort {
   oatpp::String host;
-  v_word16 port;
+  v_uint16 port;
 };
 
 

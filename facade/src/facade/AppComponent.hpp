@@ -24,7 +24,7 @@ namespace example { namespace facade {
 
 struct HostPort {
   oatpp::String host;
-  v_word16 port;
+  v_uint16 port;
 };
 
 class AppComponent {
