@@ -48,7 +48,7 @@ dto::BookDto::ObjectWrapper Database::getBookById(v_int64 id) {
   std::lock_guard<oatpp::concurrency::SpinLock> lock(m_lock);
   auto it = m_booksById.find(id);
   if (it == m_booksById.end()) {
-    return dto::BookDto::ObjectWrapper::empty();
+    return nullptr;
   }
   return deserializeToDto(it->second);
 }

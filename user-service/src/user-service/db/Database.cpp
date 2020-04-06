@@ -46,7 +46,7 @@ dto::UserDto::ObjectWrapper Database::getUserById(v_int64 id) {
   std::lock_guard<oatpp::concurrency::SpinLock> lock(m_lock);
   auto it = m_usersById.find(id);
   if (it == m_usersById.end()) {
-    return dto::UserDto::ObjectWrapper::empty();
+    return nullptr;
   }
   return deserializeToDto(it->second);
 }
