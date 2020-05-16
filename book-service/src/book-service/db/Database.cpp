@@ -6,10 +6,10 @@ namespace example { namespace book { namespace db {
 model::Book Database::serializeFromDto(const dto::BookDto::ObjectWrapper &bookDto) {
   model::Book book;
   if (bookDto->id) {
-    book.id = bookDto->id->getValue();
+    book.id = bookDto->id;
   }
   book.title = bookDto->title;
-  book.authorId = bookDto->authorId->getValue();
+  book.authorId = bookDto->authorId;
   return book;
 }
 
@@ -58,7 +58,7 @@ oatpp::data::mapping::type::List<dto::BookDto::ObjectWrapper>::ObjectWrapper Dat
   auto result = oatpp::data::mapping::type::List<dto::BookDto::ObjectWrapper>::createShared();
   auto it = m_booksById.begin();
   while (it != m_booksById.end()) {
-    result->pushBack(deserializeToDto(it->second));
+    result->push_back(deserializeToDto(it->second));
     it++;
   }
   return result;

@@ -6,7 +6,7 @@ namespace example { namespace user { namespace db {
 model::User Database::serializeFromDto(const dto::UserDto::ObjectWrapper &userDto) {
   model::User user;
   if (userDto->id) {
-    user.id = userDto->id->getValue();
+    user.id = userDto->id;
   }
   user.name = userDto->name;
   return user;
@@ -51,12 +51,12 @@ dto::UserDto::ObjectWrapper Database::getUserById(v_int64 id) {
   return deserializeToDto(it->second);
 }
 
-oatpp::data::mapping::type::List<dto::UserDto::ObjectWrapper>::ObjectWrapper Database::getUsers() {
+oatpp::List<dto::UserDto> Database::getUsers() {
   std::lock_guard<oatpp::concurrency::SpinLock> lock(m_lock);
-  auto result = oatpp::data::mapping::type::List<dto::UserDto::ObjectWrapper>::createShared();
+  auto result = oatpp::List<dto::UserDto::ObjectWrapper>::createShared();
   auto it = m_usersById.begin();
   while (it != m_usersById.end()) {
-    result->pushBack(deserializeToDto(it->second));
+    result->push_back(deserializeToDto(it->second));
     it++;
   }
   return result;

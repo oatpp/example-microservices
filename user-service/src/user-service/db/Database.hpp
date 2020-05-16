@@ -30,18 +30,18 @@ public:
 
     /* Prepopulate Database */
 
-    createUser(dto::UserDto::create(0, "F. Scott Fitzgerald"));
-    createUser(dto::UserDto::create(0, "Harper Lee"));
-    createUser(dto::UserDto::create(0, "J.K. Rowling"));
-    createUser(dto::UserDto::create(0, "George Orwell"));
-    createUser(dto::UserDto::create(0, "J.D. Salinger"));
+    createUser(dto::UserDto::createShared(0, "F. Scott Fitzgerald"));
+    createUser(dto::UserDto::createShared(0, "Harper Lee"));
+    createUser(dto::UserDto::createShared(0, "J.K. Rowling"));
+    createUser(dto::UserDto::createShared(0, "George Orwell"));
+    createUser(dto::UserDto::createShared(0, "J.D. Salinger"));
 
   }
   
   dto::UserDto::ObjectWrapper createUser(const dto::UserDto::ObjectWrapper& userDto);
   dto::UserDto::ObjectWrapper updateUser(const dto::UserDto::ObjectWrapper& userDto);
   dto::UserDto::ObjectWrapper getUserById(v_int64 id);
-  oatpp::data::mapping::type::List<dto::UserDto::ObjectWrapper>::ObjectWrapper getUsers();
+  oatpp::List<dto::UserDto> getUsers();
   bool deleteUser(v_int64 id);
   
 };

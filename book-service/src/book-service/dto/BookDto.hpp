@@ -2,14 +2,14 @@
 #ifndef example_book_dto_BookDto_hpp
 #define example_book_dto_BookDto_hpp
 
-#include "oatpp/core/data/mapping/type/Object.hpp"
+#include "oatpp/core/Types.hpp"
 #include "oatpp/core/macro/codegen.hpp"
 
 namespace example { namespace book { namespace dto {
 
 #include OATPP_CODEGEN_BEGIN(DTO)
 
-class BookDto : public oatpp::data::mapping::type::Object {
+class BookDto : public oatpp::Object {
 
   DTO_INIT(BookDto, Object)
 
@@ -19,17 +19,11 @@ class BookDto : public oatpp::data::mapping::type::Object {
 
 public:
 
-  static BookDto::ObjectWrapper create(v_int64 id, v_int64 authorId, const String& title) {
-
-    auto dto = BookDto::createShared();
-
-    dto->id = id;
-    dto->authorId = authorId;
-    dto->title = title;
-
-    return dto;
-
-  }
+  BookDto(v_int64 pId, v_int64 pAuthorId, const String& pTitle)
+    : id(pId)
+    , authorId(pAuthorId)
+    , title(pTitle)
+  {}
 
 };
 

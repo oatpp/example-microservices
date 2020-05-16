@@ -30,11 +30,11 @@ public:
 
     /* Prepopulate Database */
 
-    createBook(dto::BookDto::create(0, 1, "The Great Gatsby"));
-    createBook(dto::BookDto::create(0, 2, "To Kill a Mockingbird"));
-    createBook(dto::BookDto::create(0, 3, "Harry Potter and the Sorcerer's Stone"));
-    createBook(dto::BookDto::create(0, 4, "1984"));
-    createBook(dto::BookDto::create(0, 5, "The Catcher in the Rye"));
+    createBook(dto::BookDto::createShared(0, 1, "The Great Gatsby"));
+    createBook(dto::BookDto::createShared(0, 2, "To Kill a Mockingbird"));
+    createBook(dto::BookDto::createShared(0, 3, "Harry Potter and the Sorcerer's Stone"));
+    createBook(dto::BookDto::createShared(0, 4, "1984"));
+    createBook(dto::BookDto::createShared(0, 5, "The Catcher in the Rye"));
 
   }
   

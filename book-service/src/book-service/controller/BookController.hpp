@@ -11,6 +11,8 @@
 
 namespace example { namespace book { namespace controller {
 
+#include OATPP_CODEGEN_BEGIN(ApiController) //<-- codegen Begin
+
 class BookController : public oatpp::web::server::api::ApiController {
 private:
 
@@ -26,18 +28,13 @@ public:
 
 public:
 
-/**
- *  Begin ENDPOINTs generation ('ApiController' codegen)
- */
-#include OATPP_CODEGEN_BEGIN(ApiController)
-
   ENDPOINT_INFO(createBook) {
     info->summary = "Create new Book";
-    info->addConsumes<dto::BookDto::ObjectWrapper>("application/json");
-    info->addResponse<dto::BookDto::ObjectWrapper>(Status::CODE_200, "application/json");
+    info->addConsumes<dto::BookDto>("application/json");
+    info->addResponse<dto::BookDto>(Status::CODE_200, "application/json");
   }
   ENDPOINT("POST", "/books", createBook,
-           BODY_DTO(dto::BookDto::ObjectWrapper, bookDto)) {
+           BODY_DTO(dto::BookDto, bookDto)) {
     OATPP_ASSERT_HTTP(bookDto->authorId, Status::CODE_400, "'authorId' is require!");
     return createDtoResponse(Status::CODE_200, m_database->createBook(bookDto));
   }
@@ -46,15 +43,15 @@ public:
   ENDPOINT_INFO(putBook) {
     // general
     info->summary = "Update Book by bookId";
-    info->addConsumes<dto::BookDto::ObjectWrapper>("application/json");
-    info->addResponse<dto::BookDto::ObjectWrapper>(Status::CODE_200, "application/json");
+    info->addConsumes<dto::BookDto>("application/json");
+    info->addResponse<dto::BookDto>(Status::CODE_200, "application/json");
     info->addResponse<String>(Status::CODE_404, "text/plain");
     // params specific
     info->pathParams["bookId"].description = "Book Identifier";
   }
   ENDPOINT("PUT", "/books/{bookId}", putBook,
            PATH(Int64, bookId),
-           BODY_DTO(dto::BookDto::ObjectWrapper, bookDto)) {
+           BODY_DTO(dto::BookDto, bookDto)) {
     bookDto->id = bookId;
     return createDtoResponse(Status::CODE_200, m_database->updateBook(bookDto));
   }
@@ -63,7 +60,7 @@ public:
   ENDPOINT_INFO(getBookById) {
     // general
     info->summary = "Get one Book by bookId";
-    info->addResponse<dto::BookDto::ObjectWrapper>(Status::CODE_200, "application/json");
+    info->addResponse<dto::BookDto>(Status::CODE_200, "application/json");
     info->addResponse<String>(Status::CODE_404, "text/plain");
     // params specific
     info->pathParams["bookId"].description = "Book Identifier";
@@ -78,7 +75,7 @@ public:
 
   ENDPOINT_INFO(getBooks) {
     info->summary = "get all stored books";
-    info->addResponse<List<dto::BookDto::ObjectWrapper>::ObjectWrapper>(Status::CODE_200, "application/json");
+    info->addResponse<List<dto::BookDto>>(Status::CODE_200, "application/json");
   }
   ENDPOINT("GET", "/books", getBooks) {
     return createDtoResponse(Status::CODE_200, m_database->getBooks());
@@ -100,12 +97,9 @@ public:
     return createResponse(Status::CODE_200, "Book successfully deleted");
   }
 
-/**
- *  Finish ENDPOINTs generation ('ApiController' codegen)
- */
-#include OATPP_CODEGEN_END(ApiController)
-
 };
+
+#include OATPP_CODEGEN_END(ApiController) //<-- codegen End
 
 }}}
 

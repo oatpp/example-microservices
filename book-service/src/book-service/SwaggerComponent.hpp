@@ -30,7 +30,7 @@ public:
       .setLicenseName("The Unlicense")
       .setLicenseUrl("http://unlicense.org")
 
-      .addServer("http://localhost:8000", "server on localhost");
+      .addServer("http://localhost:8002", "server on localhost");
 
     return builder.build();
 

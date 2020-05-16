@@ -17,6 +17,8 @@
 
 namespace example { namespace facade { namespace controller {
 
+#include OATPP_CODEGEN_BEGIN(ApiController) //<--- codegen begin
+
 class BookController : public oatpp::web::server::api::ApiController {
 private:
 
@@ -30,15 +32,10 @@ public:
 
 public:
 
-/**
- *  Begin ENDPOINTs generation ('ApiController' codegen)
- */
-#include OATPP_CODEGEN_BEGIN(ApiController)
-
   ENDPOINT_INFO(getBookById) {
     // general
     info->summary = "Get one Book by bookId";
-    info->addResponse<dto::BookInfoDto::ObjectWrapper>(Status::CODE_200, "application/json");
+    info->addResponse<dto::BookInfoDto>(Status::CODE_200, "application/json");
     info->addResponse<String>(Status::CODE_404, "text/plain");
     // params specific
     info->pathParams["bookId"].description = "Book Identifier";
@@ -68,18 +65,15 @@ public:
 
 //  ENDPOINT_INFO(getBooks) {
 //    info->summary = "get all stored books";
-//    info->addResponse<List<dto::BookDto::ObjectWrapper>::ObjectWrapper>(Status::CODE_200, "application/json");
+//    info->addResponse<List<dto::BookDto>>(Status::CODE_200, "application/json");
 //  }
 //  ENDPOINT("GET", "/books", getBooks) {
 //    return createDtoResponse(Status::CODE_200, m_database->getBooks());
 //  }
 
-/**
- *  Finish ENDPOINTs generation ('ApiController' codegen)
- */
-#include OATPP_CODEGEN_END(ApiController)
-
 };
+
+#include OATPP_CODEGEN_END(ApiController) //<--- codegen end
 
 }}}
 

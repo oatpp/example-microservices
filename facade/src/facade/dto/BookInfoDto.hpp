@@ -4,20 +4,20 @@
 
 #include "UserDto.hpp"
 
-#include "oatpp/core/data/mapping/type/Object.hpp"
+#include "oatpp/core/Types.hpp"
 #include "oatpp/core/macro/codegen.hpp"
 
 namespace example { namespace facade { namespace dto {
 
 #include OATPP_CODEGEN_BEGIN(DTO)
 
-class BookInfoDto : public oatpp::data::mapping::type::Object {
+class BookInfoDto : public oatpp::Object {
 
   DTO_INIT(BookInfoDto, Object)
 
   DTO_FIELD(Int64, id);
   DTO_FIELD(String, title, "title");
-  DTO_FIELD(UserDto::ObjectWrapper, author);
+  DTO_FIELD(UserDto, author);
 
 };
 
