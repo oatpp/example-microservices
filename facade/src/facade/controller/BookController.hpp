@@ -35,7 +35,7 @@ public:
   ENDPOINT_INFO(getBookById) {
     // general
     info->summary = "Get one Book by bookId";
-    info->addResponse<dto::BookInfoDto>(Status::CODE_200, "application/json");
+    info->addResponse<oatpp::Object<dto::BookInfoDto>>(Status::CODE_200, "application/json");
     info->addResponse<String>(Status::CODE_404, "text/plain");
     // params specific
     info->pathParams["bookId"].description = "Book Identifier";
@@ -46,12 +46,12 @@ public:
     auto response = bookService->getBookById(bookId);
     OATPP_ASSERT_HTTP(response->getStatusCode() == 200, Status::CODE_500, "Unable to get book by id");
 
-    auto book = response->readBodyToDto<dto::BookDto>(getDefaultObjectMapper().get());
+    auto book = response->readBodyToDto<oatpp::Object<dto::BookDto>>(getDefaultObjectMapper().get());
 
     response = userService->getUserById(book->authorId);
     OATPP_ASSERT_HTTP(response->getStatusCode() == 200, Status::CODE_500, "Unable to get user by id");
 
-    auto user = response->readBodyToDto<dto::UserDto>(getDefaultObjectMapper().get());
+    auto user = response->readBodyToDto<oatpp::Object<dto::UserDto>>(getDefaultObjectMapper().get());
 
     auto bookInfoDto = dto::BookInfoDto::createShared();
     bookInfoDto->id = book->id;

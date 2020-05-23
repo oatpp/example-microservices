@@ -17,7 +17,7 @@ class BookInfoDto : public oatpp::DTO {
 
   DTO_FIELD(Int64, id);
   DTO_FIELD(String, title, "title");
-  DTO_FIELD(UserDto, author);
+  DTO_FIELD(Object<UserDto>, author);
 
 };
 
