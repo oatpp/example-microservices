@@ -20,8 +20,8 @@ private:
   v_int64 m_idCounter; ///< counter to generate userIds
   std::unordered_map<v_int64, model::User> m_usersById; ///< Map userId to User
 private:
-  model::User serializeFromDto(const dto::UserDto::ObjectWrapper& userDto);
-  dto::UserDto::ObjectWrapper deserializeToDto(const model::User& user);
+  model::User serializeFromDto(const oatpp::Object<dto::UserDto>& userDto);
+  oatpp::Object<dto::UserDto> deserializeToDto(const model::User& user);
 public:
   
   Database()
@@ -37,11 +37,11 @@ public:
     createUser(dto::UserDto::createShared(0, "J.D. Salinger"));
 
   }
-  
-  dto::UserDto::ObjectWrapper createUser(const dto::UserDto::ObjectWrapper& userDto);
-  dto::UserDto::ObjectWrapper updateUser(const dto::UserDto::ObjectWrapper& userDto);
-  dto::UserDto::ObjectWrapper getUserById(v_int64 id);
-  oatpp::List<dto::UserDto> getUsers();
+
+  oatpp::Object<dto::UserDto> createUser(const oatpp::Object<dto::UserDto>& userDto);
+  oatpp::Object<dto::UserDto> updateUser(const oatpp::Object<dto::UserDto>& userDto);
+  oatpp::Object<dto::UserDto> getUserById(v_int64 id);
+  oatpp::List<oatpp::Object<dto::UserDto>> getUsers();
   bool deleteUser(v_int64 id);
   
 };

@@ -9,9 +9,9 @@ namespace example { namespace user { namespace dto {
 
 #include OATPP_CODEGEN_BEGIN(DTO)
 
-class UserDto : public oatpp::Object {
+class UserDto : public oatpp::DTO {
 
-  DTO_INIT(UserDto, Object)
+  DTO_INIT(UserDto, DTO)
 
   DTO_FIELD(Int64, id);
   DTO_FIELD(String, name, "name");

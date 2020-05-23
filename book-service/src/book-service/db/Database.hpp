@@ -20,8 +20,8 @@ private:
   v_int64 m_idCounter; ///< counter to generate bookIds
   std::unordered_map<v_int64, model::Book> m_booksById; ///< Map bookId to Book
 private:
-  model::Book serializeFromDto(const dto::BookDto::ObjectWrapper& bookDto);
-  dto::BookDto::ObjectWrapper deserializeToDto(const model::Book& book);
+  model::Book serializeFromDto(const oatpp::Object<dto::BookDto>& bookDto);
+  oatpp::Object<dto::BookDto> deserializeToDto(const model::Book& book);
 public:
   
   Database()
@@ -37,11 +37,11 @@ public:
     createBook(dto::BookDto::createShared(0, 5, "The Catcher in the Rye"));
 
   }
-  
-  dto::BookDto::ObjectWrapper createBook(const dto::BookDto::ObjectWrapper& bookDto);
-  dto::BookDto::ObjectWrapper updateBook(const dto::BookDto::ObjectWrapper& bookDto);
-  dto::BookDto::ObjectWrapper getBookById(v_int64 id);
-  oatpp::data::mapping::type::List<dto::BookDto::ObjectWrapper>::ObjectWrapper getBooks();
+
+  oatpp::Object<dto::BookDto> createBook(const oatpp::Object<dto::BookDto>& bookDto);
+  oatpp::Object<dto::BookDto> updateBook(const oatpp::Object<dto::BookDto>& bookDto);
+  oatpp::Object<dto::BookDto> getBookById(v_int64 id);
+  oatpp::List<oatpp::Object<dto::BookDto>> getBooks();
   bool deleteBook(v_int64 id);
   
 };

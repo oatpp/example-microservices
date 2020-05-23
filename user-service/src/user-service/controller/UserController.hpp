@@ -30,11 +30,11 @@ public:
 
   ENDPOINT_INFO(createUser) {
     info->summary = "Create new User";
-    info->addConsumes<dto::UserDto>("application/json");
-    info->addResponse<dto::UserDto>(Status::CODE_200, "application/json");
+    info->addConsumes<Object<dto::UserDto>>("application/json");
+    info->addResponse<Object<dto::UserDto>>(Status::CODE_200, "application/json");
   }
   ENDPOINT("POST", "/users", createUser,
-           BODY_DTO(dto::UserDto, userDto)) {
+           BODY_DTO(Object<dto::UserDto>, userDto)) {
     return createDtoResponse(Status::CODE_200, m_database->createUser(userDto));
   }
 
@@ -42,15 +42,15 @@ public:
   ENDPOINT_INFO(putUser) {
     // general
     info->summary = "Update User by userId";
-    info->addConsumes<dto::UserDto>("application/json");
-    info->addResponse<dto::UserDto>(Status::CODE_200, "application/json");
+    info->addConsumes<Object<dto::UserDto>>("application/json");
+    info->addResponse<Object<dto::UserDto>>(Status::CODE_200, "application/json");
     info->addResponse<String>(Status::CODE_404, "text/plain");
     // params specific
     info->pathParams["userId"].description = "User Identifier";
   }
   ENDPOINT("PUT", "/users/{userId}", putUser,
            PATH(Int64, userId),
-           BODY_DTO(dto::UserDto, userDto)) {
+           BODY_DTO(Object<dto::UserDto>, userDto)) {
     userDto->id = userId;
     return createDtoResponse(Status::CODE_200, m_database->updateUser(userDto));
   }
@@ -59,7 +59,7 @@ public:
   ENDPOINT_INFO(getUserById) {
     // general
     info->summary = "Get one User by userId";
-    info->addResponse<dto::UserDto>(Status::CODE_200, "application/json");
+    info->addResponse<Object<dto::UserDto>>(Status::CODE_200, "application/json");
     info->addResponse<String>(Status::CODE_404, "text/plain");
     // params specific
     info->pathParams["userId"].description = "User Identifier";
@@ -74,7 +74,7 @@ public:
 
   ENDPOINT_INFO(getUsers) {
     info->summary = "get all stored users";
-    info->addResponse<List<dto::UserDto>>(Status::CODE_200, "application/json");
+    info->addResponse<List<Object<dto::UserDto>>>(Status::CODE_200, "application/json");
   }
   ENDPOINT("GET", "/users", getUsers) {
     return createDtoResponse(Status::CODE_200, m_database->getUsers());

@@ -3,7 +3,7 @@
 
 namespace example { namespace book { namespace db {
 
-model::Book Database::serializeFromDto(const dto::BookDto::ObjectWrapper &bookDto) {
+model::Book Database::serializeFromDto(const oatpp::Object<dto::BookDto> &bookDto) {
   model::Book book;
   if (bookDto->id) {
     book.id = bookDto->id;
@@ -13,7 +13,7 @@ model::Book Database::serializeFromDto(const dto::BookDto::ObjectWrapper &bookDt
   return book;
 }
 
-dto::BookDto::ObjectWrapper Database::deserializeToDto(const model::Book &book) {
+oatpp::Object<dto::BookDto> Database::deserializeToDto(const model::Book &book) {
   auto dto = dto::BookDto::createShared();
   dto->id = book.id;
   dto->title = book.title;
@@ -21,7 +21,7 @@ dto::BookDto::ObjectWrapper Database::deserializeToDto(const model::Book &book) 
   return dto;
 }
 
-dto::BookDto::ObjectWrapper Database::createBook(const dto::BookDto::ObjectWrapper &bookDto) {
+oatpp::Object<dto::BookDto> Database::createBook(const oatpp::Object<dto::BookDto> &bookDto) {
   std::lock_guard<oatpp::concurrency::SpinLock> lock(m_lock);
   auto book = serializeFromDto(bookDto);
   book.id = m_idCounter++;
@@ -29,7 +29,7 @@ dto::BookDto::ObjectWrapper Database::createBook(const dto::BookDto::ObjectWrapp
   return deserializeToDto(book);
 }
 
-dto::BookDto::ObjectWrapper Database::updateBook(const dto::BookDto::ObjectWrapper &bookDto) {
+oatpp::Object<dto::BookDto> Database::updateBook(const oatpp::Object<dto::BookDto> &bookDto) {
   std::lock_guard<oatpp::concurrency::SpinLock> lock(m_lock);
   auto book = serializeFromDto(bookDto);
   if (book.id < 0) {
@@ -44,7 +44,7 @@ dto::BookDto::ObjectWrapper Database::updateBook(const dto::BookDto::ObjectWrapp
   return deserializeToDto(book);
 }
 
-dto::BookDto::ObjectWrapper Database::getBookById(v_int64 id) {
+oatpp::Object<dto::BookDto> Database::getBookById(v_int64 id) {
   std::lock_guard<oatpp::concurrency::SpinLock> lock(m_lock);
   auto it = m_booksById.find(id);
   if (it == m_booksById.end()) {
@@ -53,9 +53,9 @@ dto::BookDto::ObjectWrapper Database::getBookById(v_int64 id) {
   return deserializeToDto(it->second);
 }
 
-oatpp::data::mapping::type::List<dto::BookDto::ObjectWrapper>::ObjectWrapper Database::getBooks() {
+oatpp::List<oatpp::Object<dto::BookDto>> Database::getBooks() {
   std::lock_guard<oatpp::concurrency::SpinLock> lock(m_lock);
-  auto result = oatpp::data::mapping::type::List<dto::BookDto::ObjectWrapper>::createShared();
+  auto result = oatpp::List<oatpp::Object<dto::BookDto>>::createShared();
   auto it = m_booksById.begin();
   while (it != m_booksById.end()) {
     result->push_back(deserializeToDto(it->second));

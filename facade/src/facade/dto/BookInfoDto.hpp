@@ -11,9 +11,9 @@ namespace example { namespace facade { namespace dto {
 
 #include OATPP_CODEGEN_BEGIN(DTO)
 
-class BookInfoDto : public oatpp::Object {
+class BookInfoDto : public oatpp::DTO {
 
-  DTO_INIT(BookInfoDto, Object)
+  DTO_INIT(BookInfoDto, DTO)
 
   DTO_FIELD(Int64, id);
   DTO_FIELD(String, title, "title");
