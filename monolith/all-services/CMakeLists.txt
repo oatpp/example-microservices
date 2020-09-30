@@ -41,8 +41,8 @@ target_link_libraries(${project_name}-exe
         PUBLIC ${FACADE_LIBRARY}
 )
 
-find_package(oatpp          1.1.0 REQUIRED)
-find_package(oatpp-swagger  1.1.0 REQUIRED)
+find_package(oatpp          1.2.0 REQUIRED)
+find_package(oatpp-swagger  1.2.0 REQUIRED)
 
 ## define path to swagger-ui res folder
 add_definitions(-DOATPP_SWAGGER_RES_PATH="${OATPP_BASE_DIR}/bin/oatpp-swagger/res")

@@ -6,7 +6,7 @@
 #include "controller/UserController.hpp"
 
 #include "oatpp-swagger/Controller.hpp"
-#include "oatpp/network/server/Server.hpp"
+#include "oatpp/network/Server.hpp"
 
 namespace example { namespace user {
 
@@ -42,7 +42,7 @@ void Runner::run(std::list<std::thread>& acceptingThreads) {
   acceptingThreads.push_back(std::thread([router, connectionHandler]{
 
     OATPP_COMPONENT(std::shared_ptr<oatpp::network::ServerConnectionProvider>, connectionProvider, Qualifiers::SERVICE_USER);
-    oatpp::network::server::Server server(connectionProvider, connectionHandler);
+    oatpp::network::Server server(connectionProvider, connectionHandler);
     OATPP_LOGI("user-service", "server is listening on port '%s'", connectionProvider->getProperty("port").getData());
     server.run();
 
@@ -52,7 +52,7 @@ void Runner::run(std::list<std::thread>& acceptingThreads) {
   acceptingThreads.push_back(std::thread([router, connectionHandler]{
 
     OATPP_COMPONENT(std::shared_ptr<oatpp::network::ServerConnectionProvider>, connectionProvider, Qualifiers::SERVICE_USER_VH);
-    oatpp::network::server::Server server(connectionProvider, connectionHandler);
+    oatpp::network::Server server(connectionProvider, connectionHandler);
     OATPP_LOGI("user-service", "server is listening on virtual interface '%s'", connectionProvider->getProperty("host").getData());
     server.run();
 

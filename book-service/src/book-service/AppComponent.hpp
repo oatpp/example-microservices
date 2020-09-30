@@ -11,7 +11,7 @@
 #include "oatpp/web/server/HttpRouter.hpp"
 
 #include "oatpp/network/virtual_/server/ConnectionProvider.hpp"
-#include "oatpp/network/server/SimpleTCPConnectionProvider.hpp"
+#include "oatpp/network/tcp/server/ConnectionProvider.hpp"
 
 #include "oatpp/parser/json/mapping/ObjectMapper.hpp"
 
@@ -52,7 +52,7 @@ public:
    * Create "real-port" connection provider
    */
   OATPP_CREATE_COMPONENT(std::shared_ptr<oatpp::network::ServerConnectionProvider>, serverConnectionProvider)(Qualifiers::SERVICE_BOOK, [this] {
-    return oatpp::network::server::SimpleTCPConnectionProvider::createShared(m_hostPort.port);
+    return oatpp::network::tcp::server::ConnectionProvider::createShared({m_hostPort.host, m_hostPort.port});
   }());
 
   /**
