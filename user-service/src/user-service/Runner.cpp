@@ -6,6 +6,8 @@
 #include "controller/UserController.hpp"
 
 #include "oatpp-swagger/Controller.hpp"
+
+#include "oatpp/web/server/HttpConnectionHandler.hpp"
 #include "oatpp/network/Server.hpp"
 
 namespace example { namespace user {
@@ -14,20 +16,15 @@ Runner::Runner() {
 
   OATPP_COMPONENT(std::shared_ptr<oatpp::web::server::HttpRouter>, router, Qualifiers::SERVICE_USER);
 
-  auto docEndpoints = oatpp::swagger::Controller::Endpoints::createShared();
+  oatpp::web::server::api::Endpoints docEndpoints;
 
-  /* Add BookController */
-  auto userController = std::make_shared<controller::UserController>();
-  userController->addEndpointsToRouter(router);
-  m_controllers.push_back(userController);
-
-  docEndpoints->pushBackAll(userController->getEndpoints());
+  /* Add UserController */
+  docEndpoints.append(router->addController(std::make_shared<controller::UserController>())->getEndpoints());
 
   OATPP_COMPONENT(std::shared_ptr<oatpp::swagger::DocumentInfo>, documentInfo, Qualifiers::SERVICE_USER);
   OATPP_COMPONENT(std::shared_ptr<oatpp::swagger::Resources>, resources, Qualifiers::SERVICE_USER);
-  auto swaggerController = oatpp::swagger::Controller::createShared(docEndpoints, documentInfo, resources);
-  swaggerController->addEndpointsToRouter(router);
-  m_controllers.push_back(swaggerController);
+
+  router->addController(oatpp::swagger::Controller::createShared(docEndpoints, documentInfo, resources));
 
 }
 

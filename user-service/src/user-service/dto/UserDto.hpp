@@ -18,6 +18,8 @@ class UserDto : public oatpp::DTO {
 
 public:
 
+  UserDto() = default;
+
   UserDto(v_int64 pId, const String& pName)
     : id(pId)
     , name(pName)

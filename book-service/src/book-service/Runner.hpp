@@ -10,8 +10,6 @@
 namespace example { namespace book {
 
 class Runner {
-private:
-  std::list<std::shared_ptr<oatpp::web::server::api::ApiController>> m_controllers;
 public:
 
   Runner();

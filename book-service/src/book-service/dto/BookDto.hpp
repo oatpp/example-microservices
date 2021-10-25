@@ -19,6 +19,8 @@ class BookDto : public oatpp::DTO {
 
 public:
 
+  BookDto() = default;
+
   BookDto(v_int64 pId, v_int64 pAuthorId, const String& pTitle)
     : id(pId)
     , authorId(pAuthorId)
